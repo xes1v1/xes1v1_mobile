@@ -1,3 +1,5 @@
+import 'package:xes1v1_mobile/app_config.dart';
+
 import 'xes1v1_mobile.dart';
 
 /// This type initializes an application.
@@ -13,7 +15,10 @@ class Xes1v1MobileChannel extends ApplicationChannel {
   /// This method is invoked prior to [entryPoint] being accessed.
   @override
   Future prepare() async {
-    logger.onRecord.listen((rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
+    logger.onRecord.listen(
+        (rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
+    final AppConfig _config = AppConfig(options.configurationFilePath);
+    options.port = _config.port;
   }
 
   /// Construct the request channel.
@@ -28,11 +33,9 @@ class Xes1v1MobileChannel extends ApplicationChannel {
 
     // Prefer to use `link` instead of `linkFunction`.
     // See: https://aqueduct.io/docs/http/request_controller/
-    router
-      .route("/example")
-      .linkFunction((request) async {
-        return Response.ok({"key": "value"});
-      });
+    router.route("/example").linkFunction((request) async {
+      return Response.ok({"key": "value"});
+    });
 
     return router;
   }

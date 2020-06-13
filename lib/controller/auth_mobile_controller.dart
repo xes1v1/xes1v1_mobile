@@ -2,6 +2,8 @@ import 'package:xes1v1_mobile/base/result.dart';
 import 'package:xes1v1_mobile/xes1v1_mobile.dart';
 
 class AuthMobileController extends ResourceController {
+
+  //查询接口认证
   @override
   FutureOr<RequestOrResponse> handle(Request request) {
     final headers = request.raw.headers;

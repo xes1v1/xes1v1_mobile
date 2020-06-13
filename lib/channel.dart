@@ -1,9 +1,11 @@
 import 'package:xes1v1_mobile/controller/article_list_controller.dart';
 import 'package:xes1v1_mobile/controller/example_controller.dart';
+import 'package:xes1v1_mobile/controller/frame_list_controller.dart';
 
 import 'base/result.dart';
 import 'controller/article_controller.dart';
 import 'controller/auth_mobile_controller.dart';
+import 'controller/frame_controller.dart';
 import 'xes1v1_mobile.dart';
 
 class Xes1v1MobileChannel extends ApplicationChannel {
@@ -39,6 +41,16 @@ class Xes1v1MobileChannel extends ApplicationChannel {
         .route("/article")
 //        .link(() => AuthMobileController())
         .link(() => ArticleController(context));
+
+    router
+        .route("/frameList")
+//        .link(() => AuthMobileController())
+        .link(() => FrameListController(context));
+
+    router
+        .route("/frame")
+//        .link(() => AuthMobileController())
+        .link(() => FrameController(context));
 
     return router;
   }

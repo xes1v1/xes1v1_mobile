@@ -7,7 +7,7 @@ class ArticleController extends ResourceController {
 
   final ManagedContext context;
 
-  //获取文章列表
+  //根据文章id获取指定文章
   @Operation.get()
   FutureOr<Response> getArticle(
       {@Bind.query('articleID') int articleID}) async {

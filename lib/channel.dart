@@ -1,8 +1,12 @@
-import 'model/article_list.dart';
+import 'package:xes1v1_mobile/controller/article_list_controller.dart';
+import 'package:xes1v1_mobile/controller/example_controller.dart';
+
+import 'base/result.dart';
+import 'controller/article_controller.dart';
+import 'controller/auth_mobile_controller.dart';
 import 'xes1v1_mobile.dart';
 
 class Xes1v1MobileChannel extends ApplicationChannel {
-  //可通过该实例操作数据库
   ManagedContext context;
 
   @override
@@ -16,16 +20,25 @@ class Xes1v1MobileChannel extends ApplicationChannel {
 
   @override
   Controller get entryPoint {
-    final router = Router();
-    router.route("/example").linkFunction((request) async {
-      return Response.ok({"key": "value"});
+    final router = Router(notFoundHandler: (request) async {
+      await request.respond(Result.error("not data", 404));
+      logger.info("${request.toDebugString()}");
     });
 
-    router.route('/queryAllArticle').linkFunction((request) async {
-      final query = Query<ArticleList>(context); //拿到表的查询实例
-      final List<ArticleList> articles = await query.fetch(); //查询所有数据
-      return Response.ok(articles); //数据以json形式返回给客户端
-    });
+    router
+        .route("/example")
+        .link(() => AuthMobileController())
+        .link(() => ExampleController());
+
+    router
+        .route("/articleList")
+//        .link(() => AuthMobileController())
+        .link(() => ArticleListController(context));
+
+    router
+        .route("/article")
+//        .link(() => AuthMobileController())
+        .link(() => ArticleController(context));
 
     return router;
   }

@@ -5,7 +5,9 @@ import 'package:xes1v1_mobile/controller/frame_list_controller.dart';
 import 'base/result.dart';
 import 'controller/article_controller.dart';
 import 'controller/auth_mobile_controller.dart';
+import 'controller/course_list_controller.dart';
 import 'controller/frame_controller.dart';
+import 'controller/honor_list_controller.dart';
 import 'xes1v1_mobile.dart';
 
 class Xes1v1MobileChannel extends ApplicationChannel {
@@ -51,6 +53,16 @@ class Xes1v1MobileChannel extends ApplicationChannel {
         .route("/frame")
 //        .link(() => AuthMobileController())
         .link(() => FrameController(context));
+
+    router
+        .route("/courseList")
+//        .link(() => AuthMobileController())
+        .link(() => CourseListController(context));
+
+    router
+        .route("/honorList")
+//        .link(() => AuthMobileController())
+        .link(() => HonorListController(context));
 
     return router;
   }

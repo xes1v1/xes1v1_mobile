@@ -29,6 +29,20 @@ class Xes1v1MobileChannel extends ApplicationChannel {
       logger.info("${request.toDebugString()}");
     });
 
+    router.route("/images/*").link(() => FileController('static/',
+            onFileNotFound: (FileController controller, Request req) async {
+          final file = File('static/page_not_found.jpg');
+          final byteStream = file.openRead();
+          return Response.ok(
+            byteStream,
+          )
+            ..encodeBody = false
+            ..contentType = ContentType("image", "jpeg");
+        })
+          ..addCachePolicy(
+              const CachePolicy(expirationFromNow: Duration(days: 10)),
+              (path) => path.endsWith('.jpg')));
+
     router
         .route("/example")
         .link(() => AuthMobileController())

@@ -11,7 +11,8 @@ class HonorListController extends ResourceController {
   //获取荣誉列表
   @Operation.get()
   FutureOr<Response> getHonorList() async {
-    final query = Query<HonorList>(context);
+    final query = Query<HonorList>(context)
+    ..sortBy((e) => e.id, QuerySortOrder.ascending);
     final List<HonorList> honorList = await query.fetch();
     if (honorList.isEmpty) {
       return Result.error("查询结果为空");

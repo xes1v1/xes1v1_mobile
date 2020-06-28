@@ -15,4 +15,6 @@ class _FrameList {
   int frameID;
 
   DateTime createData;
+
+  String link;
 }

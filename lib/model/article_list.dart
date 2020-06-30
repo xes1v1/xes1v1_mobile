@@ -16,6 +16,8 @@ class _ArticleList {
 
   String author;
 
+  String link;
+
   @Column(indexed: true)
   DateTime createData;
 }

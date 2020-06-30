@@ -10,7 +10,8 @@ class CourseListController extends ResourceController {
   //获取课程列表
   @Operation.get()
   FutureOr<Response> getCourseList() async {
-    final query = Query<CourseList>(context);
+    final query = Query<CourseList>(context)
+      ..sortBy((e) => e.id, QuerySortOrder.ascending);
     final List<CourseList> courseList = await query.fetch();
     if (courseList.isEmpty) {
       return Result.error("查询结果为空");
